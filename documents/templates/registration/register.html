@@ -1,0 +1,79 @@
+{% extends 'documents/base.html' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center">Inscription</h2>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Nom d'utilisateur</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="first_name" class="form-label">Prénom</label>
+                            <input type="text" class="form-control" id="first_name" name="first_name" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="last_name" class="form-label">Nom</label>
+                            <input type="text" class="form-control" id="last_name" name="last_name" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Adresse e-mail</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password1" class="form-label">Mot de passe</label>
+                        <input type="password" class="form-control" id="password1" name="password1" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password2" class="form-label">Confirmer le mot de passe</label>
+                        <input type="password" class="form-control" id="password2" name="password2" required>
+                    </div>
+                     <!-- Zone de contrat avec défilement obligatoire -->
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Contrat d'utilisation</strong></label>
+                        <div id="contract-box" class="border p-3 bg-light" style="height: 200px; overflow-y: scroll;">
+                            <p><strong>1. Objet du Contrat :</strong></p>
+                            <p>Ce contrat définit les conditions d'utilisation de notre plateforme, notamment l'utilisation de l'intelligence artificielle (IA) pour analyser les documents téléversés par les utilisateurs.</p>
+
+                            <p><strong>2. Analyse des Documents :</strong></p>
+                            <p>Tous les fichiers téléversés sur la plateforme seront automatiquement analysés par notre IA afin de détecter d'éventuelles menaces (virus, logiciels malveillants, fichiers corrompus, etc.). Cette analyse est effectuée pour garantir la sécurité des données et de la plateforme.</p>
+
+                            <p><strong>3. Confidentialité et Sécurité :</strong></p>
+                            <p>Aucun document ne sera conservé ou partagé en dehors de la plateforme. L'analyse se fait uniquement à des fins de sécurité. Cependant, en acceptant ce contrat, l'utilisateur comprend et accepte que ses fichiers soient traités par notre système avant d'être stockés.</p>
+
+                            <p><strong>4. Responsabilités de l'Utilisateur :</strong></p>
+                            <p>L'utilisateur s'engage à ne pas téléverser de fichiers contenant des contenus illégaux, nuisibles ou en violation des lois en vigueur.</p>
+
+                            <p><strong>5. Acceptation :</strong></p>
+                            <p>En cochant la case ci-dessous, vous reconnaissez avoir lu et compris ce contrat, et vous acceptez l'utilisation de l'IA pour analyser vos fichiers téléversés.</p>
+                        </div>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="accept_contract" name="accept_contract" disabled required>
+                        <label class="form-check-label" for="accept_contract">
+                            J'accepte les conditions d'utilisation.
+                        </label>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">S'inscrire</button>
+                    </div>
+                </form>
+                <hr>
+                <p class="text-center">Déjà inscrit ? <a href="{% url 'login' %}">Connectez-vous ici</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

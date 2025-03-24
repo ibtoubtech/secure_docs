@@ -1,0 +1,52 @@
+{% extends 'documents/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header d-flex justify-content-between align-items-center bg-light">
+                    <h2 class="mb-0">Documents partagés avec moi</h2>
+                </div>
+                <div class="card-body px-0 pb-0">
+                    {% if messages %}
+                    <div class="messages mb-4">
+                        {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+            
+                    {% if documents %}
+                    <div class="list-group mt-4">
+                        {% for document in documents %}
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">{{ document.title }}</h5>
+                                <small>Partagé par : {{ document.user.username }}</small>
+                            </div>
+                            <p class="mb-1">
+                                <small>Nom du fichier : {{ document.original_filename }}</small>
+                            </p>
+                            <div class="mt-2">
+                                <a href="{% url 'documents:download_shared' document.id %}" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-download"></i> Télécharger
+                                </a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="text-center py-5">
+                        <i class="fas fa-file-alt fa-3x text-muted mb-3"></i>
+                        <p class="text-muted">Aucun document n'a été partagé avec vous pour le moment.</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

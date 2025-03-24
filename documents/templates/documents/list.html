@@ -1,0 +1,72 @@
+{% extends 'documents/base.html' %}
+
+{% block title %}Mes Documents{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header d-flex justify-content-between align-items-center bg-light">
+                    <h2 class="mb-0">Mes Documents</h2>
+                    <div>
+                        <a href="{% url 'documents:shared_with_me' %}" class="btn btn-info me-2">
+                            <i class="fas fa-share-alt"></i> Documents partagés avec moi
+                        </a>
+                        <a href="{% url 'documents:upload' %}" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Nouveau Document
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body px-0 pb-0">
+                    {% if documents %}
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th class="px-4">Titre</th>
+                                        <th class="px-4">Nom du fichier</th>
+                                        <th class="px-4">Téléversé le</th>
+                                        <th class="px-4" style="width: 400px;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for document in documents %}
+                                        <tr>
+                                            <td class="px-4">{{ document.title }}</td>
+                                            <td class="px-4">{{ document.original_filename }}</td>
+                                            <td class="px-4">{{ document.uploaded_at|date:"d/m/Y H:i" }}</td>
+                                            <td class="px-4">
+                                                <div class="d-flex gap-2">
+                                                    <a href="{% url 'documents:download' document.id %}" class="btn btn-success" title="Télécharger">
+                                                        <i class="fas fa-download"></i> Télécharger
+                                                    </a>
+                                                    <a href="{% url 'documents:share' document.id %}" class="btn btn-info" title="Partager">
+                                                        <i class="fas fa-share-alt"></i> Partager
+                                                    </a>
+                                                    <a href="{% url 'documents:manage_shares' document.id %}" class="btn btn-secondary" title="Gérer les partages">
+                                                        <i class="fas fa-users"></i> Gérer
+                                                    </a>
+                                                    <a href="{% url 'documents:delete' document.id %}" class="btn btn-danger" title="Supprimer">
+                                                        <i class="fas fa-trash"></i> Supprimer
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% else %}
+                            <div class="text-center py-5">
+                                <i class="fas fa-file-alt fa-3x text-muted mb-3"></i>
+                                <p class="text-muted">Aucun document téléversé pour le moment.</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
